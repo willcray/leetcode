@@ -1,2 +1,1 @@
-# leetcode
-My solutions to Leetcode problems
+My solutions to various coding challenges from Leetcode.com and Algorithms.io
