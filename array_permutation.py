@@ -1,6 +1,9 @@
-# you can write to stdout for debugging purposes, e.g.
-# print("this is a debug message")
-
+"""
+https://app.codility.com/programmers/lessons/4-counting_elements/perm_check/
+12/5/2019
+Time - O(N)
+Space - O(N)
+"""
 # assuming
 # N is an integer within the range[1..100, 000]
 # each element of array A is an integer within the range[1..1, 000, 000, 000].
@@ -28,14 +31,15 @@ def solution(A):
     # iterate list once, storing list of bools if number was found
     found = [False] * len(A)
     for val in A:
-        if val >= 0 and val < len(A):
+        if val > 0 and val < len(A):
             found[val] = True
         else:
             return 0
 
     # iterate list of bools, return 0 if False is encountered, else 1
-    for b in found:
-        if not b:
+    # ignoring value at first index
+    for i in range(1, len(found)):
+        if not found[i]:
             return 0
 
     return 1
