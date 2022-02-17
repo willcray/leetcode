@@ -1,27 +1,39 @@
 """
 https://leetcode.com/problems/two-sum/
 Author: Will Cray
-Date: 12/13/2018
+Date: 2/17/2022
 """
 class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
+    # constraint: can't use the same element (by index, not value)
+    # constraint: exactly one solution
+    # constraint: values in nums and target are integers, so they can be negative
+    # constraint: 2 <= nums.length <= 104
+    
+    # assumption: nums has at least two integers that sum to target
+    # assumption: nums may not be sorted
+    
+    # example: [1, 3, 3] target = 6; output = [1, 2]
+    
+    # Solution
+    # time: O(len(nums)) -> O(n)
+    # space: O(len(nums)) -> O(n)
+    
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
         
-        # brute force solution is a double nested loop where you try all combinations and return
-        # the two indices once you get the sum - time: O(n^2), space: O(1)
-        
-        # optimal solution uses a hash map/dict
-        # time: O(n) because of the sort, space: O(1)
-        
-        rev_table = {}
-        for i in range(len(nums)):
-        	num2 = target - nums[i]
+        # brute force: double nested loop with two pointers
+
+
+        # optimal: one pass build out dictionary num -> idx (gives constant lookup)
+        nums_lookup = {}
+        # iterate list
+        for i, num in enumerate(nums):
+            # subtract current num from target
+            diff = target - num
+
+            # check if difference exists AND that it's unique from num
+            if diff in nums_lookup and nums_lookup[diff] != i:
+                # assumption: this case will always hit
+                return [i, nums_lookup[diff]]
             
-        	if num2 in rev_table:
-        		return [rev_table[num2], i]
-        	else:
-        		rev_table[nums[i]] = i
+            # add to hash map
+            nums_lookup[num] = i
