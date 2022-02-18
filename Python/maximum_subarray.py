@@ -1,33 +1,49 @@
 """
 https://leetcode.com/problems/maximum-subarray/
 Author: Will Cray
-Date: 5/10/2019
+Date: 2/17/2022
 Time: O(N)
 Space: O(1)
 """
 
 
 class Solution:
+    
+    # input: list of at least one integer
+    # output: max sum of contiguous subarray
+    
+    # ex: [1] -> 1
+    # ex: [2, -1, 3] -> 4
+    # ex: [4, -10, 2] -> 4
     def maxSubArray(self, nums: List[int]) -> int:
-        # assume that input array has at least one integer
-        # assuming a subarray can be the entire array
         
-        if not nums:
-            return 0
+        # brute force: nested for loop with two pointers, tracking max sum
+        # time: O(n^2), where n len(nums)
+        # space: O(1)
         
-        if len(nums) == 1:
-            return nums[0]
+        # [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+        #             l
+        #                              r
+        # max_sum = 6
+        # curr_sum = 5
         
-        l, r = 0, 1
-        total_max, curr_max = nums[l], nums[l]
+        # better solution:
+        # time: O(N)
+        # space: O(1)
         
-        while r < len(nums):
-            if curr_max < 0 and nums[r] > curr_max:
-                l = r
-                curr_max = nums[r]
-            else:
-                curr_max += nums[r]
-            total_max = max(total_max, curr_max)
-            r += 1
+        # init max and current sum to first value in the list
+        max_sum = curr_sum = nums[0]
         
-        return total_max
+        # iterate through the list with right pointer
+        for r in range(1, len(nums)):
+            
+            # check if it's better to move the start of subarray
+            # by seeing if adding it or starting fresh with it would yield a 
+            # higher result
+            curr_sum = max(nums[r], curr_sum + nums[r])    
+            
+            # overwrite max sum if greater than max sum
+            max_sum = max(curr_sum, max_sum)
+            
+        # return max sum
+        return max_sum
