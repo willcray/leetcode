@@ -1,56 +1,71 @@
 """
 https://leetcode.com/problems/linked-list-cycle/
 Author: Will Cray
-Date: 4/26/2019
-Time: O(n)
+Date: 2/22/2022
+Time: O(N)
 Space: O(1)
 """
 
 
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
 
-class Solution(object):
-    def hasCycle(self, head):
-        """
-        :type head: ListNode
-        :rtype: bool
-        """
-        if not head:
-            return False
+class Solution:
+    
+    # input: linked list containing ListNode objects
+    # list could be empty
+    
+    # output: boolean, true if there is a cycle, false otherwise
+    
+    # ex - [1, 2, 3], pos = 1, output = true
+    # ex - [], pos = -1, output = false
+    # ex - [1], pos = -1, output = false
+    # ex - [1, 2], pos = -1, output = false
+    
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
         
-        if not head.next:
-            return False
-        
-        # while loop
-        while(True):
-            # check if head has not been visited
-            if head.val != "v":
-                # if not visited and next is not None, mark as visited, update head
-                if head.next:
-                    # marks current node as visited
-                    head.val = "v"
-                    # update head to next node in list
-                    head = head.next
-                # if not visited and next is None, return False
-                else:
-                    return False
-            # if visited, return True
-            else:
-                return True
+        # initial solution - iterative using set
+        # time: O(N), where N is number of nodes
+        # space: O(N), due to the hash table
         
         """
-        # set solution - O(N) time, O(N) space
-        s = set()
-        while(True):
-            if head.next in s:
-                return True
-            elif head.next is None:
+        visited = set()
+        
+        # iterate each node
+        while head:
+            
+            # return true if we've ever seen a node before
+            if head in visited: return True
+            
+            # add node to a visited set
+            visited.add(head)
+            
+            # step to next node
+            head = head.next
+            
+        # return false if you finish iterating without revisiting
+        return False
+        """
+
+    
+        # Floyd's Cycle Finding Algo
+        # time: O(N)
+        # space: (1)
+        
+        if head is None: return False
+        
+        slow = head
+        fast = head.next
+        
+        while slow != fast:
+            if fast is None or fast.next is None: 
                 return False
-            else:
-                s.add(head)
-                head = head.next
-        """
+            fast = fast.next.next
+            slow = slow.next
+        
+        return True
+    
+        
