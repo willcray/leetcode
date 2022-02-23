@@ -1,50 +1,60 @@
 """
 https://leetcode.com/problems/longest-substring-without-repeating-characters/
-time: O(N)
-space: O(N)
 Author: Will Cray
-Date: 1/18/2020
+Date: 2/23/2022
+Time: O(N)
+Space: O(1)
 """
 
+
 class Solution:
+    
+    # input: string, s 
+    # 0 <= s.length <= 5 * 104
+    # s is ASCII
+    
+    # output: int, representing the longest substring w/o repeating chars
+    
+    # ex. - "abc" -> 3
+    # ex. - "abb" -> 2
+    # ex. - "" -> 0
+    # ex. - "pwwkew" -> 3
+    
     def lengthOfLongestSubstring(self, s: str) -> int:
-
-        """
-        "gaiekdjg" -> 7
-        "" -> 0
-        None -> 0
-        """
-
-        # start, end pointers
-        """
-        "a b c a b c b b"
-                       s
-                       e
-        "p w w k e w"
-        "a z y b a a c d e f g h" -> 7
-                   s
-                               e
-        """
-
-        sub = set()
-        longest = 0
-        start = 0
-        for letter in s:
-            # add to substring if no duplicate
-            if letter not in sub:
-                sub.add(letter)
-            else:
-                # iterate start pointer until no dups
-                while letter in sub:
-                    sub.discard(s[start])
-                    start += 1
-
-                sub.add(letter)
-
-            # update longest substring value
-            if len(sub) > longest:
-                longest = len(sub)
-
-        return longest
-
-
+        
+        # brute force solution:
+        # nested loop with two pointers, maintain a max substring, maintain list / set of currently used letters
+        # continue the outer loop when you encounter the first letter twice
+        # time: O(n^2) if a set w/ constant lookup is used, O(n^3) otherwise
+        # space: O(N)
+        
+        # dp solution: 
+        # time: O(n^2)
+        # space: O(n^2)
+        
+        # sliding window solution
+        # time: O(N)
+        # space: O(N)
+        
+        # init char -> index map for current substring
+        substr_map = {}
+        
+        # init max
+        max_len = 0
+        
+        l = 0
+        # loop over s, assign two pointers to first two letters
+        for r in range(len(s)):
+            
+            # if letter at right pointer is in set
+            if s[r] in substr_map: 
+                # explicitly remove repeated string from current pointers
+                l = max(l, substr_map[s[r]])
+                
+            # take max of current and max substring
+            max_len = max(max_len, r - l + 1)
+            substr_map[s[r]] = r + 1
+                
+        return max_len
+        
+        
