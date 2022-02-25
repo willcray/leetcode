@@ -1,31 +1,58 @@
 """
 https://leetcode.com/problems/group-anagrams/
-time: O(N*Mlog(M))
-space: O(N)
 Author: Will Cray
-Date: 1/14/2020
+Date: 2/24/2022
+Time: O(N * M)
+Space: O(N * M)
 """
 
+from collections import defaultdict
 
 class Solution:
+    # input: list of strings, strs
+    # all lower case, english letters
+    # at least one element in the input
+    # each string is at least length one
+    
+    # output: List of list of strings, the groups of anagrams
+    
+    # ex. - ["tea", "ate", "pea", "sea", "note", "tone"] -> [["tea", "ate"], ["pea"], ["sea"], ["note", "tone"]]
+    # ex. - [""] -> [[""]]
+    
+    # assumption: anagrams can be returned in any order
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-
-        # solution 1 - create sets for each string, compare sets
-        # time - O(N*Mlog(M)), space - O(N)
-
-        # solution 2 - use a dict with a mapping of set() -> index of output array
-        output = []
-        d = {}
+        
+        # initial idea: 
+        # nested loop through each string, checking if each is an anagram
+        # use set or dictionary to determine if one string is an anagram of another string
+        # if you don't use a set / dictionary, you can iterate and look for each character, which amkes it O(n^3 * M)
+        # time: O(N^2 * M), where N is num of strings, M is the length of the longest string
+        # space: O(N * M)
+        
+        # better solution: could sort each string, and the list, keeping a map to unsorted strings, compare directly
+        # time: O(N * M log(M))
+        # space: O(N * M)
+        
+        # improved: use count dictionary
+        # time: O(N * M)
+        # space: O(N * M)
+        
+        # create map for that maps character count array -> groups of anagrams
+        # we'll return the values of this map
+        groups = defaultdict(list)
+        
         for s in strs:
-            sorted_s = ''.join(sorted(s))
-            if sorted_s not in d:
-                # store the index in the output array of the
-                # new anagram
-                d[sorted_s] = len(output)
-                output.append([s])
-            else:
-                out_index = d[sorted_s]
-                output[out_index].append(s)
-
-        return output
-
+            # only using lower-case, English letters
+            count = 26 * [0]
+            for c in s:
+                # ord() returns unicode encoding of a char
+                # encoding is relative to the start of lexicon, 'a'
+                count[ord(c) - ord('a')] += 1
+            
+            # append current string to whichever group has same character count
+            groups[str(count)] += [s]
+        
+        return groups.values()
+        
+        
+        
