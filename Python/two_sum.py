@@ -2,6 +2,8 @@
 https://leetcode.com/problems/two-sum/
 Author: Will Cray
 Date: 2/17/2022
+Time: O(N)
+Space: O(N)
 """
 class Solution(object):
     # constraint: can't use the same element (by index, not value)
