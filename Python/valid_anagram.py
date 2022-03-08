@@ -1,7 +1,7 @@
 """
 https://leetcode.com/problems/valid-anagram/
 time: O(N)
-space: O(1)
+space: O(N)
 Author: Will Cray
 Date: 2/18/2022
 """
@@ -26,8 +26,8 @@ class Solution:
         # space: O(1)
         
         # even better solution: 
-        # time: O(n)
-        # space: O(1)
+        # time: O(N)
+        # space: O(N)
         
         if len(s) != len(t): return False
         

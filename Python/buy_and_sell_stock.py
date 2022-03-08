@@ -28,11 +28,10 @@ class Solution:
         # time: O(n^2), where n is len(prices)
         # space: O(1)
         
-        # better solution: create hash map price -> index, sort map, 
-        # compute difference between the first and last element, checking to ensure
-        # the sale price's index is greater than the buy prices index
-        # time: O(nlog(n))
-        # space: O(1)
+        # better solution: sort list, return diff between 
+        # first and last prices
+        # time: O(Nlog(N))
+        # space: O(N)
         
         # best solution: two pointers, one loop
         # maintain a max profit value, initialized at zero
