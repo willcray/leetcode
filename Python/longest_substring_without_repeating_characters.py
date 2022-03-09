@@ -3,7 +3,7 @@ https://leetcode.com/problems/longest-substring-without-repeating-characters/
 Author: Will Cray
 Date: 2/23/2022
 Time: O(N)
-Space: O(1)
+Space: O(N)
 """
 
 
@@ -28,10 +28,6 @@ class Solution:
         # time: O(n^2) if a set w/ constant lookup is used, O(n^3) otherwise
         # space: O(N)
         
-        # dp solution: 
-        # time: O(n^2)
-        # space: O(n^2)
-        
         # sliding window solution
         # time: O(N)
         # space: O(N)
@@ -43,18 +39,20 @@ class Solution:
         max_len = 0
         
         l = 0
-        # loop over s, assign two pointers to first two letters
+        # loop over s
         for r in range(len(s)):
             
             # if letter at right pointer is in set
             if s[r] in substr_map: 
                 # explicitly remove repeated string from current pointers
-                l = max(l, substr_map[s[r]])
+                l = max(l, substr_map[s[r]] + 1)
                 
             # take max of current and max substring
             max_len = max(max_len, r - l + 1)
-            substr_map[s[r]] = r + 1
+            substr_map[s[r]] = r
                 
         return max_len
+        
+        
         
         

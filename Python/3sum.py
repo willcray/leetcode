@@ -41,10 +41,12 @@ class Solution:
         
         for i, num in enumerate(nums):
             # remaining values can't sum to zero
-            if num > 0: break
+            if num > 0: 
+                break
             
             # if current num isn't the same as the previous num
-            if i == 0 or num != nums[i-1]: self.twoSumII(nums, i, res)
+            if i == 0 or num != nums[i-1]: 
+                self.twoSumII(nums, i, res)
                 
         return res
             

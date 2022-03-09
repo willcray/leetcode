@@ -28,22 +28,23 @@ class Solution:
         # time: O(n^2), where n is len(prices)
         # space: O(1)
         
-        # better solution: sort list, return diff between 
-        # first and last prices
-        # time: O(Nlog(N))
-        # space: O(N)
+        # better solution: create hash map price -> index, sort map, 
+        # compute difference between the first and last element, checking to ensure
+        # the sale price's index is greater than the buy prices index
+        # time: O(nlog(n))
+        # space: O(1)
         
         # best solution: two pointers, one loop
         # maintain a max profit value, initialized at zero
         max_profit = 0
-        buy = 0
+        min_price = float('inf')
         
         # iterate with two pointers
-        for sell in range(1, len(prices)):
-            profit = prices[sell] - prices[buy]
-            if profit > max_profit:
-                max_profit = profit
-            if profit <= 0:
-                buy = sell
+        for price in prices:
+            
+            min_price = min(price, min_price)
+            max_profit = max(price - min_price, max_profit)
             
         return max_profit
+        
+        
