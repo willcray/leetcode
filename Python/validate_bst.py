@@ -25,11 +25,11 @@ class Solution:
     
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         
-        # iterative BFS:
+        # iterative BFS using explicit stack
         # time: O(N)
         # space: O(N)
         
-        # recursive DFS: 
+        # DFS w/ fence: 
         # time: O(N), where N is number of nodes, O(N)
         # space: O(N)
         # recursive, base case is both children are None, return true
@@ -50,4 +50,8 @@ class Solution:
             self.validate(node.left, low, node.val))
         
         
-        
+
+    # DFS in-order traversal
+
+
+    # BFS w/ explicit stack in-order traversal

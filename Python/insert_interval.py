@@ -31,6 +31,9 @@ class Solution:
     
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         
+        # time: O(N)
+        # space: O(1)
+        
         # create return list
         res = []
         
@@ -39,11 +42,13 @@ class Solution:
         # loop over intervals
         for idx, (i_start, i_end) in enumerate(intervals):
             
-            # no overlap and before start
+            # no overlap -- interval to be inserted is after 
+            # current interval's end
             if i_end < new_start: 
                 res.append([i_start, i_end])
             
-            # no overlap and after end
+            # no overlap -- interval to be inserted is before
+            # current interval's start
             elif new_end < i_start: 
                 res.append([new_start, new_end])
                 # can return earlier
@@ -55,7 +60,7 @@ class Solution:
                 new_start = min(new_start, i_start)
                 new_end = max(new_end, i_end)
         
-        # if it hasn't returned yet, then this was never added
+        # if it hasn't returned yet, then new interval was never appended, so append it
         res.append([new_start, new_end])
             
         # return list

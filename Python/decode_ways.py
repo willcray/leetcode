@@ -51,12 +51,12 @@ class Solution:
             if s[i] != "0":
                 # current result is a valid path to get to char at i
                 current = one_back
-            two_digit = int(s[i - 1: i + 1])
             
             # check for possible two digit decode
-            
-            if two_digit >= 10 and two_digit <= 26:
+            two_digits = int(s[i - 1: i + 1])
+            if two_digits >= 10 and two_digits <= 26:
                 current += two_back
+            
             two_back = one_back
             one_back = current
             
