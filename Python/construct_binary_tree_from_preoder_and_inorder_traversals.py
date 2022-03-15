@@ -32,16 +32,20 @@ class Solution:
         inorder_lookup = {}
         for i, num in enumerate(inorder):
             inorder_lookup[num] = i
-            
+        
+        # preorder gives us the value of root
         pre_iter = iter(preorder)
         
         def buildSubtree(start, end):
             if start > end:
                 return None
             
+            # iterate to next root
             root_val = next(pre_iter)
             root = TreeNode(root_val)
             idx = inorder_lookup[root_val]
+            
+            # call recursively on subtrees
             root.left = buildSubtree(start, idx - 1)
             root.right = buildSubtree(idx + 1, end)
             

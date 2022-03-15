@@ -56,6 +56,9 @@ class Solution:
             # compute current area and compare against max
             max_area = max(max_area, min(height[l], height[r]) * (r - l))
             
+            # only way to increase area is by moving changing the shorter of the two;
+            # otherwise, we'd stay at the same height and potentially be decreasing
+            # width too
             if height[l] < height[r]:
                 l += 1
             else:
